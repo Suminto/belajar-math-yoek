@@ -1,0 +1,98 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Ganti dengan URL situs setelah dideploy ke Netlify, contoh:
+# site_url: https://nama-situs-anda.netlify.app
+publish_mode: simple
+media_folder: "content/uploads"
+public_folder: "/content/uploads"
+
+collections:
+  - name: "home"
+    label: "Halaman Home"
+    files:
+      - name: "home"
+        label: "Home"
+        file: "content/home.json"
+        fields:
+          - { label: "Label Kecil (Eyebrow)", name: "eyebrow", widget: "string", required: false }
+          - { label: "Judul", name: "judul", widget: "string" }
+          - { label: "Paragraf Pembuka", name: "intro", widget: "text" }
+          - { label: "Catatan / Petunjuk", name: "catatan", widget: "text", required: false }
+
+  - name: "about"
+    label: "Halaman About"
+    files:
+      - name: "about"
+        label: "About"
+        file: "content/about.json"
+        fields:
+          - { label: "Judul", name: "judul", widget: "string" }
+          - { label: "Konten", name: "konten", widget: "text" }
+          - { label: "Kontak / Kredit", name: "kontak", widget: "string", required: false }
+
+  - name: "bilangan"
+    label: "Bilangan"
+    files:
+      - name: "bilangan"
+        label: "Materi Bilangan"
+        file: "content/bilangan.json"
+        fields:
+          - { label: "Judul Domain", name: "title", widget: "string" }
+          - &fases_field
+            label: "Daftar Fase (A–F)"
+            name: "fases"
+            widget: "list"
+            summary: "{{fields.fase}} — {{fields.judul}}"
+            fields:
+              - { label: "Kode Fase", name: "fase", widget: "select", options: ["A", "B", "C", "D", "E", "F"] }
+              - { label: "Label Fase", name: "label", widget: "string" }
+              - { label: "Judul Materi", name: "judul", widget: "string", required: false }
+              - { label: "Ringkasan Singkat", name: "ringkasan", widget: "text", required: false }
+              - { label: "Konten (Markdown)", name: "konten", widget: "markdown", required: false }
+              - label: "Poin-Poin Materi"
+                name: "materi"
+                widget: "list"
+                required: false
+                field: { label: "Poin", name: "poin", widget: "string" }
+
+  - name: "aljabar"
+    label: "Aljabar"
+    files:
+      - name: "aljabar"
+        label: "Materi Aljabar"
+        file: "content/aljabar.json"
+        fields:
+          - { label: "Judul Domain", name: "title", widget: "string" }
+          - *fases_field
+
+  - name: "pengukuran"
+    label: "Pengukuran"
+    files:
+      - name: "pengukuran"
+        label: "Materi Pengukuran"
+        file: "content/pengukuran.json"
+        fields:
+          - { label: "Judul Domain", name: "title", widget: "string" }
+          - *fases_field
+
+  - name: "geometri"
+    label: "Geometri"
+    files:
+      - name: "geometri"
+        label: "Materi Geometri"
+        file: "content/geometri.json"
+        fields:
+          - { label: "Judul Domain", name: "title", widget: "string" }
+          - *fases_field
+
+  - name: "analisis-data-peluang"
+    label: "Analisis Data dan Peluang"
+    files:
+      - name: "analisis-data-peluang"
+        label: "Materi Analisis Data dan Peluang"
+        file: "content/analisis-data-peluang.json"
+        fields:
+          - { label: "Judul Domain", name: "title", widget: "string" }
+          - *fases_field

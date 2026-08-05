@@ -1,0 +1,53 @@
+{
+  "title": "Pengukuran",
+  "fases": [
+    {
+      "fase": "A",
+      "label": "Fase A · Kelas 1–2 SD",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    },
+    {
+      "fase": "B",
+      "label": "Fase B · Kelas 3–4 SD",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    },
+    {
+      "fase": "C",
+      "label": "Fase C · Kelas 5–6 SD",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    },
+    {
+      "fase": "D",
+      "label": "Fase D · Kelas 7–9 SMP",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    },
+    {
+      "fase": "E",
+      "label": "Fase E · Kelas 10 SMA/SMK",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    },
+    {
+      "fase": "F",
+      "label": "Fase F · Kelas 11–12 SMA/SMK",
+      "judul": "",
+      "ringkasan": "",
+      "konten": "",
+      "materi": []
+    }
+  ]
+}

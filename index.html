@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Belajar Matematika — Kurikulum Merdeka</title>
+<meta name="description" content="Situs pembelajaran matematika berbasis domain (Bilangan, Aljabar, Pengukuran, Geometri, Analisis Data dan Peluang) dan fase A–F Kurikulum Merdeka." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app">
+  <nav class="col-menu" aria-label="Menu utama">
+    <div class="brand">
+      Belajar Matematika
+      <small>Kurikulum Merdeka</small>
+    </div>
+    <ul class="menu-list" id="menu-list"></ul>
+  </nav>
+
+  <main class="col-workspace" id="workspace" aria-live="polite">
+    <!-- Konten dirender oleh js/app.js -->
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+
+<!-- Netlify Identity: mengarahkan ke /admin setelah login -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+</body>
+</html>
