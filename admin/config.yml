@@ -56,6 +56,12 @@ collections:
                 widget: "list"
                 required: false
                 field: { label: "Poin", name: "poin", widget: "string" }
+              - label: "File Ebook Interaktif (opsional)"
+                name: "ebook_file"
+                widget: "file"
+                required: false
+                hint: "Upload file .html ebook interaktif (mis. dari skill ebook-interaktif-html). Akan tampil sebagai tombol 'Buka Ebook' di halaman fase ini."
+              - { label: "Judul Tombol Ebook", name: "ebook_label", widget: "string", required: false, default: "Buka Ebook Interaktif", hint: "Teks pada tombol, boleh diganti misalnya sesuai judul ebook." }
 
   - name: "aljabar"
     label: "Aljabar"

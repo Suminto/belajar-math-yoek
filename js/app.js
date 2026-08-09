@@ -148,7 +148,7 @@ async function showDomain(key) {
   (data.fases || []).forEach((f) => {
     const step = document.createElement("div");
     step.className = "stair-step";
-    const filled = Boolean(f.judul || f.konten || f.ringkasan);
+    const filled = Boolean(f.judul || f.konten || f.ringkasan || f.ebook_file);
     step.innerHTML = `
       <button class="stair-card" data-fase="${escapeHtml(f.fase)}">
         <span class="stair-badge">${escapeHtml(f.fase)}</span>
@@ -166,7 +166,8 @@ async function showDomain(key) {
 
 function showFaseDetail(domainKey, fase) {
   const domain = domainByKey(domainKey);
-  const hasContent = Boolean(fase.judul || fase.konten || fase.ringkasan || (fase.materi && fase.materi.length));
+  const hasEbook = Boolean(fase.ebook_file);
+  const hasContent = Boolean(fase.judul || fase.konten || fase.ringkasan || (fase.materi && fase.materi.length) || hasEbook);
 
   workspace.innerHTML = `
     <button class="back-link" id="back-btn">&#8249; Kembali ke ${escapeHtml(domain.label)}</button>
@@ -174,6 +175,17 @@ function showFaseDetail(domainKey, fase) {
       <span class="detail-tag">${escapeHtml(fase.label || "Fase " + fase.fase)}</span>
       <h1 class="detail-title">${escapeHtml(fase.judul || domain.label + " — " + fase.label)}</h1>
       ${fase.ringkasan ? `<p class="detail-summary">${escapeHtml(fase.ringkasan)}</p>` : ""}
+      ${
+        hasEbook
+          ? `
+        <a class="ebook-cta" href="${escapeHtml(fase.ebook_file)}" target="_blank" rel="noopener">
+          <span class="ebook-cta-icon">&#128214;</span>
+          <span>${escapeHtml(fase.ebook_label || "Buka Ebook Interaktif")}</span>
+          <span class="ebook-cta-arrow">&#8599;</span>
+        </a>
+      `
+          : ""
+      }
       ${
         hasContent
           ? `
