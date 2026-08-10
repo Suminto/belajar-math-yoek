@@ -18,8 +18,8 @@ collections:
         fields:
           - { label: "Label Kecil (Eyebrow)", name: "eyebrow", widget: "string", required: false }
           - { label: "Judul", name: "judul", widget: "string" }
-          - { label: "Paragraf Pembuka", name: "intro", widget: "text" }
-          - { label: "Catatan / Petunjuk", name: "catatan", widget: "text", required: false }
+          - { label: "Paragraf Pembuka (singkat, 1-2 kalimat, teks polos)", name: "intro", widget: "text" }
+          - { label: "Catatan / Isi Lengkap (Markdown)", name: "catatan", widget: "markdown", required: false, hint: "Boleh panjang. Gunakan Markdown: ## Judul, **tebal**, *miring*, - list, 1. list bernomor, > kutipan, [teks](url), --- garis pemisah." }
 
   - name: "about"
     label: "Halaman About"
@@ -29,7 +29,7 @@ collections:
         file: "content/about.json"
         fields:
           - { label: "Judul", name: "judul", widget: "string" }
-          - { label: "Konten", name: "konten", widget: "text" }
+          - { label: "Konten (Markdown)", name: "konten", widget: "markdown", hint: "Boleh panjang. Gunakan Markdown: ## Judul, **tebal**, *miring*, - list, 1. list bernomor, > kutipan, [teks](url), --- garis pemisah." }
           - { label: "Kontak / Kredit", name: "kontak", widget: "string", required: false }
 
   - name: "bilangan"

@@ -425,7 +425,6 @@ a { color: inherit; }
   background: var(--panel);
   padding: 28px 32px;
   max-width: 74ch;
-  white-space: pre-line;
   color: var(--text);
 }
 

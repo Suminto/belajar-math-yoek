@@ -104,7 +104,7 @@ async function showHome() {
       <h1 class="workspace-title">${escapeHtml(data.judul || "Selamat Datang")}</h1>
       <p class="workspace-lede">${escapeHtml(data.intro || "")}</p>
     </div>
-    <div class="prose-card">${escapeHtml(data.catatan || "")}</div>
+    <div class="prose-card detail-body">${renderMarkdown(data.catatan || "")}</div>
     <div class="home-grid" id="home-grid"></div>
   `;
   const grid = document.getElementById("home-grid");
@@ -130,7 +130,7 @@ async function showAbout() {
     <div class="workspace-header">
       <h1 class="workspace-title">${escapeHtml(data.judul || "Tentang")}</h1>
     </div>
-    <div class="prose-card">${escapeHtml(data.konten || "")}${data.kontak ? "\n\n" + escapeHtml(data.kontak) : ""}</div>
+    <div class="prose-card detail-body">${renderMarkdown(data.konten || "")}${data.kontak ? `<p><em>${escapeHtml(data.kontak)}</em></p>` : ""}</div>
   `;
 }
 
