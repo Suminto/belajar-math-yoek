@@ -15,6 +15,9 @@ const STATIC_PAGES = [
 const cache = {};
 
 // ===== Tiny markdown renderer (no external deps, offline-friendly) =====
+// Catatan keamanan: tag HTML mentah SENGAJA di-escape (bukan dirender),
+// supaya konten dari admin tidak bisa menyuntik script berbahaya.
+// Gunakan sintaks Markdown di bawah ini untuk memformat teks.
 function renderMarkdown(md) {
   if (!md) return "";
   const escaped = md
@@ -24,10 +27,10 @@ function renderMarkdown(md) {
 
   const lines = escaped.split("\n");
   let html = "";
-  let inList = false;
+  let listType = null; // "ul" | "ol" | null
 
   const closeList = () => {
-    if (inList) { html += "</ul>"; inList = false; }
+    if (listType) { html += `</${listType}>`; listType = null; }
   };
 
   for (let raw of lines) {
@@ -35,10 +38,17 @@ function renderMarkdown(md) {
     if (line === "") { closeList(); continue; }
 
     let m;
+    if ((m = line.match(/^---+$/))) { closeList(); html += "<hr />"; continue; }
     if ((m = line.match(/^###\s+(.*)/))) { closeList(); html += `<h3>${inline(m[1])}</h3>`; continue; }
     if ((m = line.match(/^##\s+(.*)/))) { closeList(); html += `<h2>${inline(m[1])}</h2>`; continue; }
+    if ((m = line.match(/^&gt;\s?(.*)/))) { closeList(); html += `<blockquote>${inline(m[1])}</blockquote>`; continue; }
+    if ((m = line.match(/^\d+\.\s+(.*)/))) {
+      if (listType !== "ol") { closeList(); html += "<ol>"; listType = "ol"; }
+      html += `<li>${inline(m[1])}</li>`;
+      continue;
+    }
     if ((m = line.match(/^[-*]\s+(.*)/))) {
-      if (!inList) { html += "<ul>"; inList = true; }
+      if (listType !== "ul") { closeList(); html += "<ul>"; listType = "ul"; }
       html += `<li>${inline(m[1])}</li>`;
       continue;
     }
@@ -50,8 +60,10 @@ function renderMarkdown(md) {
 
   function inline(text) {
     return text
+      .replace(/`(.+?)`/g, "<code>$1</code>")
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.+?)\*/g, "<em>$1</em>");
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   }
 }
 

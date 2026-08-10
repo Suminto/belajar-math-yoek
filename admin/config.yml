@@ -50,7 +50,7 @@ collections:
               - { label: "Label Fase", name: "label", widget: "string" }
               - { label: "Judul Materi", name: "judul", widget: "string", required: false }
               - { label: "Ringkasan Singkat", name: "ringkasan", widget: "text", required: false }
-              - { label: "Konten (Markdown)", name: "konten", widget: "markdown", required: false }
+              - { label: "Konten (Markdown)", name: "konten", widget: "markdown", required: false, hint: "Gunakan Markdown: ## Sub Judul, **tebal**, *miring*, `kode`, - list, 1. list bernomor, > kutipan, [teks](url), --- garis pemisah. Tag HTML tidak akan tampil." }
               - label: "Poin-Poin Materi"
                 name: "materi"
                 widget: "list"

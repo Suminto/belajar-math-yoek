@@ -321,9 +321,39 @@ a { color: inherit; }
 }
 
 .detail-body p { margin: 0 0 14px; color: var(--text); }
-.detail-body ul { margin: 0 0 14px; padding-left: 20px; }
+.detail-body ul, .detail-body ol { margin: 0 0 14px; padding-left: 22px; }
 .detail-body li { margin-bottom: 6px; }
 .detail-body strong { color: #fff; }
+.detail-body em { color: var(--text); }
+
+.detail-body a {
+  color: var(--domain-color, #8fb3ff);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.detail-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.detail-body blockquote {
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  border-left: 3px solid var(--domain-color, var(--text-faint));
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.detail-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 22px 0;
+}
 
 .ebook-cta {
   display: inline-flex;
