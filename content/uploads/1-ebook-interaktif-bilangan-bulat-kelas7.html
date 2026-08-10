@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ebook Interaktif — Bilangan Bulat | Kelas 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{
+  --sidebar-bg:#0b1220;
+  --sidebar-bg2:#0f1830;
+  --sidebar-text:#eee2c8;
+  --sidebar-muted:#9aa3b8;
+  --sidebar-accent:#f0b429;
+  --sidebar-border:rgba(255,255,255,0.09);
+
+  --paper-bg:#faf6ee;
+  --paper-bg2:#f3ecdb;
+  --paper-card:#fffdf8;
+  --ink:#2b2620;
+  --ink-muted:#6b5f4f;
+  --ink-soft:#8a7d68;
+  --rule:#e4d9bf;
+
+  --accent-brown:#8a5a2b;
+  --accent-teal:#2f6f62;
+
+  --def-bg:#eef4ee; --def-border:#4f8f6b;
+  --warn-bg:#fdf1e4; --warn-border:#c9822c;
+  --tip-bg:#eef2fb; --tip-border:#4a6fc9;
+
+  --correct-bg:#e6f4ea; --correct-border:#2f8f52; --correct-text:#1c5c33;
+  --wrong-bg:#fdecec; --wrong-border:#c94a3f; --wrong-text:#8f2a20;
+
+  --c-bs:#2f6f62; --c-pg:#8a5a2b; --c-jd:#c9822c; --c-pk:#5b4a9e; --c-is:#b3466b;
+
+  --radius:14px;
+  --shadow:0 6px 24px rgba(30,20,0,0.10);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:var(--paper-bg);
+  color:var(--ink);
+  line-height:1.65;
+}
+h1,h2,h3,h4{font-family:'Playfair Display', serif; margin:0 0 .5rem 0;}
+.mono{font-family:'JetBrains Mono', monospace;}
+
+/* ===== LAYOUT ===== */
+.layout{ display:grid; grid-template-columns: 300px 1fr; min-height:100vh; }
+
+/* ===== SIDEBAR ===== */
+#sidebar{
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  background:linear-gradient(180deg, var(--sidebar-bg), var(--sidebar-bg2));
+  color:var(--sidebar-text);
+  padding:1.6rem 1.3rem 2.5rem;
+  border-right:1px solid var(--sidebar-border);
+  scrollbar-width:thin;
+}
+#sidebar::-webkit-scrollbar{width:6px;}
+#sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-border); border-radius:3px;}
+
+.sb-label{
+  font-family:'JetBrains Mono', monospace; font-size:.72rem; letter-spacing:.08em;
+  color:var(--sidebar-accent); text-transform:uppercase; margin-bottom:.4rem;
+}
+.sb-title{ font-size:1.5rem; font-weight:800; color:var(--sidebar-text); margin-bottom:1rem; }
+
+.progress-track{
+  height:5px; width:100%; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin-bottom:1.6rem;
+}
+.progress-fill{
+  height:100%; width:0%; background:linear-gradient(90deg,var(--sidebar-accent), #ffd77a);
+  transition:width .25s ease;
+}
+
+.nav-section-label{
+  font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--sidebar-muted);
+  margin:1.3rem 0 .5rem; font-family:'JetBrains Mono', monospace;
+}
+.nav-list{ list-style:none; margin:0; padding:0; }
+.nav-link{
+  display:block; padding:.5rem .6rem; border-radius:9px; color:var(--sidebar-text); text-decoration:none;
+  font-size:.92rem; margin-bottom:.15rem; border-left:2px solid transparent; transition:.18s ease; opacity:.85;
+}
+.nav-link:hover{ background:rgba(255,255,255,0.06); opacity:1; }
+.nav-link.active{
+  background:rgba(240,180,41,0.12); border-left:2px solid var(--sidebar-accent); color:var(--sidebar-accent); opacity:1; font-weight:600;
+}
+.nav-sub{ list-style:none; margin:.15rem 0 .4rem 0; padding-left:.9rem; border-left:1px dashed rgba(255,255,255,0.12); }
+.nav-sub .nav-link{ font-size:.85rem; padding:.35rem .55rem; opacity:.75; }
+
+.sb-footer-note{
+  margin-top:2rem; padding-top:1rem; border-top:1px solid var(--sidebar-border);
+  font-size:.75rem; color:var(--sidebar-muted); font-family:'JetBrains Mono', monospace;
+}
+
+#menuToggle{ display:none; }
+
+/* ===== CONTENT ===== */
+#content{ background:var(--paper-bg); }
+section{ scroll-margin-top:1.5rem; }
+
+.hero{
+  padding:4.2rem 4rem 3rem;
+  background:
+    radial-gradient(circle at 85% -10%, rgba(138,90,43,0.10), transparent 55%),
+    var(--paper-bg);
+  border-bottom:1px solid var(--rule);
+}
+.hero-label{ font-family:'JetBrains Mono', monospace; color:var(--accent-brown); letter-spacing:.1em; text-transform:uppercase; font-size:.8rem; margin-bottom:.6rem;}
+.hero h1{ font-size:2.6rem; color:var(--ink); max-width:820px; }
+.hero p.lead{ font-size:1.15rem; color:var(--ink-muted); max-width:640px; margin-top:.8rem; }
+.chips{ display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.8rem; }
+.chip{
+  background:var(--paper-card); border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+  font-size:.85rem; color:var(--ink-muted); font-family:'JetBrains Mono', monospace;
+}
+
+.content-inner{ padding:0 4rem; max-width:900px; }
+.materi-section{ padding:3.4rem 0; border-bottom:1px dashed var(--rule); }
+.materi-section:last-of-type{ border-bottom:none; }
+.sec-label{ font-family:'JetBrains Mono', monospace; font-size:.78rem; color:var(--accent-brown); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.5rem; }
+.sec-title{ font-size:1.85rem; color:var(--ink); border-bottom:3px solid var(--accent-brown); display:inline-block; padding-bottom:.2rem; }
+.sec-body{ margin-top:1.3rem; font-size:1.05rem; color:var(--ink); }
+.sec-body p{ margin:0 0 1rem; }
+.sec-body ul, .sec-body ol{ margin:0 0 1rem; padding-left:1.4rem; }
+.sec-body li{ margin-bottom:.35rem; }
+
+.callout{ border-radius:var(--radius); padding:1.1rem 1.3rem; margin:1.3rem 0; border-left:5px solid; box-shadow:var(--shadow); }
+.callout-title{ font-weight:700; font-family:'Playfair Display', serif; margin-bottom:.35rem; font-size:1.02rem; }
+.callout.def{ background:var(--def-bg); border-color:var(--def-border); }
+.callout.def .callout-title{ color:var(--def-border); }
+.callout.warn{ background:var(--warn-bg); border-color:var(--warn-border); }
+.callout.warn .callout-title{ color:var(--warn-border); }
+.callout.tip{ background:var(--tip-bg); border-color:var(--tip-border); }
+.callout.tip .callout-title{ color:var(--tip-border); }
+
+.worked{
+  background:var(--paper-card); border:1px solid var(--rule); border-radius:var(--radius);
+  padding:1.2rem 1.4rem; margin:1.3rem 0; box-shadow:var(--shadow);
+}
+.worked-title{ font-family:'JetBrains Mono', monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--accent-teal); margin-bottom:.5rem; }
+
+.numline{ width:100%; height:auto; margin:1rem 0; }
+
+/* Kalkulator interaktif */
+.calc{
+  background:linear-gradient(180deg, var(--paper-card), var(--paper-bg2));
+  border:1px solid var(--rule); border-radius:var(--radius); padding:1.3rem 1.5rem; margin:1.5rem 0;
+  box-shadow:var(--shadow);
+}
+.calc-title{ font-family:'Playfair Display', serif; font-weight:700; font-size:1.05rem; color:var(--accent-brown); margin-bottom:.9rem; display:flex; align-items:center; gap:.5rem;}
+.calc-row{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; margin-bottom:.8rem; }
+.calc-row input[type=number], .calc-row input[type=text]{
+  font-family:'JetBrains Mono', monospace; font-size:1rem; padding:.55rem .7rem; border:1px solid var(--rule);
+  border-radius:8px; width:110px; background:#fff; color:var(--ink);
+}
+.calc-row select{
+  font-family:'JetBrains Mono', monospace; font-size:1rem; padding:.55rem .5rem; border:1px solid var(--rule);
+  border-radius:8px; background:#fff; color:var(--ink);
+}
+.calc-btn{
+  background:var(--accent-brown); color:#fff; border:none; border-radius:8px; padding:.6rem 1.2rem;
+  font-family:'Source Serif 4', serif; font-weight:600; font-size:.95rem; cursor:pointer; transition:.18s ease;
+}
+.calc-btn:hover{ background:#734a22; transform:translateY(-1px); }
+.calc-result{
+  margin-top:.7rem; padding:.9rem 1rem; border-radius:10px; background:#fff; border:1px dashed var(--rule);
+  font-family:'JetBrains Mono', monospace; font-size:.98rem; min-height:1.4rem; color:var(--ink);
+}
+.calc-result .big{ font-size:1.3rem; font-weight:700; color:var(--accent-teal); }
+
+/* ===== LATIHAN ===== */
+.latihan-header{ padding:3.4rem 0 1.5rem; }
+.quiz-tabs{ display:flex; gap:.5rem; flex-wrap:wrap; margin:1.2rem 0 1.8rem; }
+.quiz-tab{
+  border:2px solid var(--rule); background:var(--paper-card); border-radius:999px; padding:.5rem 1.1rem;
+  font-family:'JetBrains Mono', monospace; font-size:.82rem; cursor:pointer; color:var(--ink-muted); transition:.18s ease;
+}
+.quiz-tab.active{ color:#fff; }
+.quiz-tab[data-type=bs].active{ background:var(--c-bs); border-color:var(--c-bs);}
+.quiz-tab[data-type=pg].active{ background:var(--c-pg); border-color:var(--c-pg);}
+.quiz-tab[data-type=jd].active{ background:var(--c-jd); border-color:var(--c-jd);}
+.quiz-tab[data-type=pk].active{ background:var(--c-pk); border-color:var(--c-pk);}
+.quiz-tab[data-type=is].active{ background:var(--c-is); border-color:var(--c-is);}
+
+.score-panel{
+  display:flex; gap:1.2rem; flex-wrap:wrap; background:var(--paper-card); border:1px solid var(--rule);
+  border-radius:var(--radius); padding:1rem 1.3rem; margin-bottom:1.8rem; box-shadow:var(--shadow);
+}
+.score-box{ text-align:center; min-width:70px; }
+.score-box .num{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:1.15rem; color:var(--accent-brown); }
+.score-box .lbl{ font-size:.72rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; }
+
+.question-card{
+  background:var(--paper-card); border:1px solid var(--rule); border-radius:var(--radius);
+  padding:1.3rem 1.5rem; margin-bottom:1.2rem; box-shadow:var(--shadow); border-left:5px solid var(--rule);
+  animation:fadeUp .35s ease;
+}
+@keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+.question-card.correct-card{ border-left-color:var(--correct-border); background:linear-gradient(180deg,#fff,var(--correct-bg)); }
+.question-card.wrong-card{ border-left-color:var(--wrong-border); background:linear-gradient(180deg,#fff,var(--wrong-bg)); }
+
+.q-meta{ display:flex; align-items:center; gap:.6rem; margin-bottom:.6rem; }
+.q-num{ font-family:'JetBrains Mono', monospace; font-weight:700; width:1.8rem; height:1.8rem; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:.85rem; color:#fff; }
+.q-level{ font-size:.68rem; padding:.18rem .6rem; border-radius:999px; font-family:'JetBrains Mono', monospace; text-transform:uppercase; letter-spacing:.04em; }
+.lvl-mudah{ background:#e6f4ea; color:#1c5c33; }
+.lvl-sedang{ background:#fdf1d0; color:#8a5a00; }
+.lvl-sukar{ background:#fdecec; color:#8f2a20; }
+
+.q-text{ font-size:1.05rem; margin-bottom:.9rem; color:var(--ink); }
+
+.opt-list{ display:flex; flex-direction:column; gap:.5rem; }
+.opt-btn{
+  text-align:left; background:#fff; border:1.5px solid var(--rule); border-radius:9px; padding:.65rem .9rem;
+  font-family:'Source Serif 4', serif; font-size:.98rem; cursor:pointer; transition:.16s ease; color:var(--ink);
+}
+.opt-btn:hover:not(:disabled){ transform:translateX(3px); border-color:var(--accent-brown); }
+.opt-btn:disabled{ cursor:default; }
+.opt-btn.chosen-correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct-text); font-weight:600; }
+.opt-btn.chosen-wrong{ background:var(--wrong-bg); border-color:var(--wrong-border); color:var(--wrong-text); font-weight:600; }
+.opt-btn.reveal-correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct-text); }
+
+.bs-btns{ display:flex; gap:.8rem; }
+.bs-btn{ flex:1; padding:.7rem; border-radius:9px; border:1.5px solid var(--rule); background:#fff; font-size:1rem; cursor:pointer; font-family:'Source Serif 4', serif; }
+.bs-btn:hover:not(:disabled){ border-color:var(--accent-brown); }
+
+.jd-row{ display:flex; align-items:center; gap:.8rem; }
+.jd-left{ flex:1; font-family:'JetBrains Mono', monospace; background:#fff; border:1px solid var(--rule); border-radius:8px; padding:.55rem .8rem; }
+.jd-select{ flex:1; font-family:'JetBrains Mono', monospace; padding:.55rem; border-radius:8px; border:1.5px solid var(--rule); background:#fff; }
+
+.is-row{ display:flex; gap:.6rem; }
+.is-row input{ flex:1; font-family:'Source Serif 4', serif; font-size:1rem; padding:.6rem .8rem; border:1.5px solid var(--rule); border-radius:9px; }
+.is-submit{ background:var(--accent-teal); color:#fff; border:none; border-radius:9px; padding:.6rem 1.2rem; cursor:pointer; font-weight:600; }
+
+.pk-confirm{ margin-top:.6rem; background:var(--c-pk); color:#fff; border:none; border-radius:9px; padding:.6rem 1.2rem; cursor:pointer; font-weight:600; }
+.pk-mark{ font-family:'JetBrains Mono', monospace; margin-right:.4rem; }
+
+.explanation{
+  margin-top:.9rem; padding:.85rem 1rem; border-radius:9px; background:var(--tip-bg); border:1px dashed var(--tip-border);
+  font-size:.92rem; color:var(--ink); display:none;
+}
+.explanation.show{ display:block; }
+
+.final-analysis{ display:none; margin-top:1.5rem; }
+.final-analysis.show{ display:block; }
+.stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:.9rem; margin-bottom:1.5rem; }
+.stat-box{ background:var(--paper-card); border:1px solid var(--rule); border-radius:var(--radius); padding:1rem; text-align:center; box-shadow:var(--shadow); }
+.stat-box .val{ font-family:'JetBrains Mono', monospace; font-size:1.5rem; font-weight:700; color:var(--accent-brown); }
+.stat-box .lbl{ font-size:.75rem; color:var(--ink-soft); text-transform:uppercase; }
+.type-bar-row{ display:flex; align-items:center; gap:.8rem; margin-bottom:.6rem; }
+.type-bar-label{ width:60px; font-family:'JetBrains Mono', monospace; font-size:.8rem; }
+.type-bar-track{ flex:1; height:14px; background:var(--paper-bg2); border-radius:7px; overflow:hidden; }
+.type-bar-fill{ height:100%; border-radius:7px; transition:width .8s cubic-bezier(.4,0,.2,1); }
+.grade-box{
+  text-align:center; padding:1.6rem; border-radius:var(--radius); margin:1.5rem 0;
+  background:linear-gradient(135deg, var(--accent-brown), var(--accent-teal)); color:#fff; box-shadow:var(--shadow);
+}
+.grade-box .grade{ font-family:'Playfair Display', serif; font-size:2.8rem; font-weight:800; }
+.reset-btn{
+  background:var(--sidebar-bg); color:var(--sidebar-accent); border:none; border-radius:9px; padding:.7rem 1.4rem;
+  cursor:pointer; font-weight:700; font-family:'Source Serif 4', serif; font-size:1rem;
+}
+
+footer{ padding:2.5rem 4rem 3rem; border-top:1px solid var(--rule); color:var(--ink-soft); font-size:.88rem; }
+footer strong{ color:var(--ink); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px){
+  .layout{ grid-template-columns:1fr; }
+  #sidebar{
+    position:fixed; left:0; top:0; width:82%; max-width:320px; z-index:50; transform:translateX(-105%);
+    transition:transform .28s ease; box-shadow:0 0 40px rgba(0,0,0,0.4);
+  }
+  #sidebar.open{ transform:translateX(0); }
+  #menuToggle{
+    display:flex; position:fixed; top:1rem; left:1rem; z-index:60; background:var(--sidebar-bg); color:var(--sidebar-accent);
+    border:1px solid var(--sidebar-border); border-radius:10px; padding:.6rem .9rem; font-size:1.1rem; cursor:pointer;
+    align-items:center; gap:.4rem; box-shadow:var(--shadow);
+  }
+  #overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:40; }
+  #overlay.show{ display:block; }
+  .hero{ padding:5.5rem 1.4rem 2rem; }
+  .hero h1{ font-size:1.9rem; }
+  .content-inner{ padding:0 1.4rem; }
+  footer{ padding:2rem 1.4rem; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<button id="menuToggle" onclick="toggleSidebar()">☰ Menu</button>
+<div id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+  <!-- ============ SIDEBAR ============ -->
+  <nav id="sidebar">
+    <div class="sb-label">Matematika · Kelas 7 SMP</div>
+    <div class="sb-title">Bilangan Bulat</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="nav-section-label">Materi</div>
+    <ul class="nav-list">
+      <li><a href="#materi-a" class="nav-link" data-nav="materi-a">A. Pengertian Bilangan Bulat</a></li>
+      <li><a href="#materi-b" class="nav-link" data-nav="materi-b">B. Penjumlahan &amp; Pengurangan</a></li>
+      <li><a href="#materi-c" class="nav-link" data-nav="materi-c">C. Perkalian &amp; Pembagian</a></li>
+      <li><a href="#materi-d" class="nav-link" data-nav="materi-d">D. Bilangan Berpangkat</a></li>
+      <li><a href="#materi-e" class="nav-link" data-nav="materi-e">E. Bilangan Prima</a></li>
+      <li><a href="#materi-f" class="nav-link" data-nav="materi-f">F. Faktor &amp; FPB</a></li>
+      <li><a href="#materi-g" class="nav-link" data-nav="materi-g">G. Kelipatan &amp; KPK</a></li>
+    </ul>
+
+    <div class="nav-section-label">Latihan Soal Interaktif</div>
+    <ul class="nav-list">
+      <li><a href="#latihan" class="nav-link" data-nav="latihan">🖊 Soal Interaktif</a></li>
+      <li>
+        <ul class="nav-sub">
+          <li><a href="#latihan" onclick="switchQuizType('pg')" class="nav-link">1. Pilihan Ganda</a></li>
+          <li><a href="#latihan" onclick="switchQuizType('is')" class="nav-link">2. Isian Singkat</a></li>
+          <li><a href="#latihan" onclick="switchQuizType('pk')" class="nav-link">3. PG Kompleks</a></li>
+          <li><a href="#latihan" onclick="switchQuizType('bs')" class="nav-link">4. Benar / Salah</a></li>
+          <li><a href="#latihan" onclick="switchQuizType('jd')" class="nav-link">5. Menjodohkan</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="sb-footer-note">Ebook Interaktif · Suminto with Claude</div>
+  </nav>
+
+  <!-- ============ CONTENT ============ -->
+  <div id="content">
+    <section class="hero" id="hero">
+      <div class="hero-label">Matematika · Kelas 7 SMP</div>
+      <h1>Bilangan Bulat</h1>
+      <p class="lead">Menjelajahi dunia bilangan bulat: mulai dari pengertian dasar, operasi hitung, pangkat, bilangan prima, hingga FPB dan KPK — lengkap dengan kalkulator interaktif dan latihan soal otomatis terkoreksi.</p>
+      <div class="chips">
+        <span class="chip">A. Pengertian Bilangan Bulat</span>
+        <span class="chip">B. Penjumlahan &amp; Pengurangan</span>
+        <span class="chip">C. Perkalian &amp; Pembagian</span>
+        <span class="chip">D. Bilangan Berpangkat</span>
+        <span class="chip">E. Bilangan Prima</span>
+        <span class="chip">F. Faktor &amp; FPB</span>
+        <span class="chip">G. Kelipatan &amp; KPK</span>
+        <span class="chip">🖊 30 Soal · 5 Tipe</span>
+      </div>
+    </section>
+
+    <div class="content-inner">
+
+      <!-- A -->
+      <section class="materi-section" id="materi-a">
+        <div class="sec-label">Bagian A</div>
+        <h2 class="sec-title">Pengertian Bilangan Bulat</h2>
+        <div class="sec-body">
+          <p>Bilangan bulat adalah himpunan bilangan yang terdiri atas <strong>bilangan bulat positif</strong>, <strong>nol</strong>, dan <strong>bilangan bulat negatif</strong>. Bilangan bulat tidak memiliki bentuk pecahan atau desimal.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 Definisi</div>
+            Himpunan bilangan bulat dituliskan sebagai
+            \( \mathbb{Z} = \{ ..., -3, -2, -1, 0, 1, 2, 3, ... \} \).
+            Bilangan di sebelah kanan nol disebut bilangan bulat positif, dan di sebelah kiri nol disebut bilangan bulat negatif.
+          </div>
+
+          <p>Bilangan bulat dapat digambarkan pada <strong>garis bilangan</strong>. Semakin ke kanan, nilainya semakin besar; semakin ke kiri, nilainya semakin kecil.</p>
+
+          <svg class="numline" viewBox="0 0 640 90" xmlns="http://www.w3.org/2000/svg">
+            <line x1="30" y1="45" x2="610" y2="45" stroke="#2b2620" stroke-width="2"/>
+            <polygon points="610,45 598,39 598,51" fill="#2b2620"/>
+            <polygon points="30,45 42,39 42,51" fill="#2b2620"/>
+            <g font-family="JetBrains Mono, monospace" font-size="14" fill="#2b2620" text-anchor="middle">
+              <g id="ticks"></g>
+            </g>
+          </svg>
+
+          <div class="callout tip">
+            <div class="callout-title">💡 Lawan Bilangan &amp; Nilai Mutlak</div>
+            Lawan dari suatu bilangan bulat \(a\) adalah \(-a\). Misalnya lawan dari 5 adalah -5, dan lawan dari -8 adalah 8.
+            Nilai mutlak \( |a| \) adalah jarak bilangan \(a\) terhadap nol, selalu bernilai positif. Contoh: \( |-7| = 7 \) dan \( |7| = 7 \).
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Urutkan bilangan berikut dari yang terkecil: <span class="mono">-5, 3, -1, 0, -8, 2</span><br><br>
+            <strong>Penyelesaian:</strong> Bandingkan posisinya pada garis bilangan (semakin kiri semakin kecil).<br>
+            Urutan: <span class="mono">-8, -5, -1, 0, 2, 3</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- B -->
+      <section class="materi-section" id="materi-b">
+        <div class="sec-label">Bagian B</div>
+        <h2 class="sec-title">Operasi Penjumlahan dan Pengurangan</h2>
+        <div class="sec-body">
+          <p>Untuk menjumlahkan atau mengurangkan bilangan bulat, perhatikan aturan tanda berikut.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 Aturan Tanda</div>
+            <ul>
+              <li>Tanda <strong>sama</strong> → jumlahkan nilainya, tanda hasil mengikuti tanda kedua bilangan.<br> Contoh: \( -3 + (-4) = -7 \)</li>
+              <li>Tanda <strong>berbeda</strong> → kurangkan nilai yang lebih besar dengan yang lebih kecil, tanda hasil mengikuti bilangan yang nilainya lebih besar.<br> Contoh: \( -8 + 3 = -5 \)</li>
+              <li>Mengurangi sama dengan menambah lawan bilangan: \( a - b = a + (-b) \)</li>
+            </ul>
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Hitunglah \( -12 - (-5) \)<br><br>
+            <strong>Penyelesaian:</strong> \( -12 - (-5) = -12 + 5 = -7 \)
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-title">💡 Sifat Penjumlahan</div>
+            Penjumlahan bilangan bulat bersifat <strong>komutatif</strong> (\( a+b = b+a \)) dan <strong>asosiatif</strong> (\( (a+b)+c = a+(b+c) \)).
+          </div>
+
+          <div class="calc" id="calcAddSub">
+            <div class="calc-title">🧮 Kalkulator Penjumlahan &amp; Pengurangan</div>
+            <div class="calc-row">
+              <input type="number" id="asA" value="-8" step="1">
+              <select id="asOp">
+                <option value="+">+</option>
+                <option value="-">−</option>
+              </select>
+              <input type="number" id="asB" value="15" step="1">
+              <button class="calc-btn" onclick="hitungAddSub()">Hitung</button>
+            </div>
+            <div class="calc-result" id="asResult">Hasil akan tampil di sini…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- C -->
+      <section class="materi-section" id="materi-c">
+        <div class="sec-label">Bagian C</div>
+        <h2 class="sec-title">Operasi Perkalian dan Pembagian</h2>
+        <div class="sec-body">
+          <p>Perkalian dan pembagian bilangan bulat mengikuti aturan tanda yang konsisten.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 Aturan Tanda Perkalian &amp; Pembagian</div>
+            <ul>
+              <li>\( (+) \times (+) = (+) \) dan \( (+) \div (+) = (+) \)</li>
+              <li>\( (-) \times (-) = (+) \) dan \( (-) \div (-) = (+) \)</li>
+              <li>\( (+) \times (-) = (-) \) dan \( (+) \div (-) = (-) \)</li>
+              <li>\( (-) \times (+) = (-) \) dan \( (-) \div (+) = (-) \)</li>
+            </ul>
+            Singkatnya: <strong>tanda sama → hasil positif</strong>, <strong>tanda beda → hasil negatif</strong>.
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Hitunglah \( (-6) \times 7 \) dan \( (-36) \div (-4) \)<br><br>
+            <strong>Penyelesaian:</strong><br>
+            \( (-6) \times 7 = -42 \) (tanda beda → negatif)<br>
+            \( (-36) \div (-4) = 9 \) (tanda sama → positif)
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-title">⚠️ Perhatian</div>
+            Pembagian dengan bilangan bulat tidak selalu menghasilkan bilangan bulat pula. Contoh: \( 7 \div 2 = 3{,}5 \) bukan bilangan bulat.
+          </div>
+
+          <div class="calc" id="calcMulDiv">
+            <div class="calc-title">🧮 Kalkulator Perkalian &amp; Pembagian</div>
+            <div class="calc-row">
+              <input type="number" id="mdA" value="-6" step="1">
+              <select id="mdOp">
+                <option value="×">×</option>
+                <option value="÷">÷</option>
+              </select>
+              <input type="number" id="mdB" value="7" step="1">
+              <button class="calc-btn" onclick="hitungMulDiv()">Hitung</button>
+            </div>
+            <div class="calc-result" id="mdResult">Hasil akan tampil di sini…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D -->
+      <section class="materi-section" id="materi-d">
+        <div class="sec-label">Bagian D</div>
+        <h2 class="sec-title">Operasi Bilangan Berpangkat</h2>
+        <div class="sec-body">
+          <p>Bilangan berpangkat adalah cara singkat menuliskan perkalian berulang suatu bilangan.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 Definisi</div>
+            \( a^n = \underbrace{a \times a \times ... \times a}_{n \text{ kali}} \), dengan \(a\) disebut <strong>basis</strong> dan \(n\) disebut <strong>pangkat/eksponen</strong>.
+            Contoh: \( 4^3 = 4 \times 4 \times 4 = 64 \)
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-title">💡 Pangkat pada Bilangan Negatif</div>
+            <ul>
+              <li>Jika pangkatnya <strong>genap</strong>, hasilnya <strong>positif</strong>: \( (-2)^2 = 4 \)</li>
+              <li>Jika pangkatnya <strong>ganjil</strong>, hasilnya <strong>negatif</strong>: \( (-2)^3 = -8 \)</li>
+              <li>Bilangan apa pun (kecuali 0) dipangkatkan 0 hasilnya 1: \( a^0 = 1 \)</li>
+            </ul>
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Hitunglah \( (-3)^4 \)<br><br>
+            <strong>Penyelesaian:</strong> \( (-3)^4 = (-3)\times(-3)\times(-3)\times(-3) = 9 \times 9 = 81 \) (pangkat genap → hasil positif)
+          </div>
+
+          <div class="calc" id="calcPangkat">
+            <div class="calc-title">🧮 Kalkulator Bilangan Berpangkat</div>
+            <div class="calc-row">
+              <input type="number" id="pgBasis" value="-3" step="1"> <span class="mono">pangkat</span>
+              <input type="number" id="pgEksp" value="4" min="0" max="12" step="1">
+              <button class="calc-btn" onclick="hitungPangkat()">Hitung</button>
+            </div>
+            <div class="calc-result" id="pgResult">Hasil akan tampil di sini…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- E -->
+      <section class="materi-section" id="materi-e">
+        <div class="sec-label">Bagian E</div>
+        <h2 class="sec-title">Bilangan Prima</h2>
+        <div class="sec-body">
+          <p>Bilangan prima adalah salah satu konsep penting dalam teori bilangan yang menjadi dasar untuk mencari FPB dan KPK.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 Definisi</div>
+            Bilangan prima adalah bilangan asli lebih besar dari 1 yang <strong>hanya memiliki dua faktor</strong>, yaitu 1 dan bilangan itu sendiri.
+            Contoh bilangan prima: 2, 3, 5, 7, 11, 13, 17, 19, 23, ...
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-title">💡 Fakta Menarik</div>
+            2 adalah satu-satunya bilangan prima yang genap. Semua bilangan prima lainnya adalah bilangan ganjil. Bilangan 1 <strong>bukan</strong> bilangan prima karena hanya memiliki satu faktor.
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Cara Mengecek Bilangan Prima</div>
+            Untuk memeriksa apakah suatu bilangan \(n\) prima, cukup uji pembagian dengan bilangan-bilangan hingga \( \sqrt{n} \).
+            Jika tidak ada satu pun yang membagi habis \(n\), maka \(n\) adalah bilangan prima.
+          </div>
+
+          <div class="calc" id="calcPrima">
+            <div class="calc-title">🧮 Pengecek Bilangan Prima</div>
+            <div class="calc-row">
+              <span class="mono">n =</span>
+              <input type="number" id="prN" value="97" min="0" step="1">
+              <button class="calc-btn" onclick="cekPrima()">Cek</button>
+            </div>
+            <div class="calc-result" id="prResult">Hasil akan tampil di sini…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- F -->
+      <section class="materi-section" id="materi-f">
+        <div class="sec-label">Bagian F</div>
+        <h2 class="sec-title">Faktor dan FPB</h2>
+        <div class="sec-body">
+          <p><strong>Faktor</strong> suatu bilangan adalah bilangan-bilangan yang dapat membagi habis bilangan tersebut.</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 FPB (Faktor Persekutuan Terbesar)</div>
+            FPB dari dua bilangan atau lebih adalah faktor terbesar yang sama-sama dimiliki oleh bilangan-bilangan tersebut.
+            Cara mencarinya: gunakan <strong>faktorisasi prima</strong>, lalu ambil faktor prima yang sama dengan pangkat terkecil.
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Tentukan FPB dari 24 dan 36.<br><br>
+            <strong>Penyelesaian:</strong><br>
+            \( 24 = 2^3 \times 3 \)<br>
+            \( 36 = 2^2 \times 3^2 \)<br>
+            FPB = ambil pangkat terkecil dari faktor yang sama = \( 2^2 \times 3 = 12 \)
+          </div>
+
+          <div class="calc" id="calcFpbKpk1">
+            <div class="calc-title">🧮 Kalkulator FPB &amp; KPK</div>
+            <div class="calc-row">
+              <span class="mono">a =</span>
+              <input type="number" id="fkA" value="24" min="1" step="1">
+              <span class="mono">b =</span>
+              <input type="number" id="fkB" value="36" min="1" step="1">
+              <button class="calc-btn" onclick="hitungFpbKpk()">Hitung</button>
+            </div>
+            <div class="calc-result" id="fkResult">Hasil akan tampil di sini…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- G -->
+      <section class="materi-section" id="materi-g">
+        <div class="sec-label">Bagian G</div>
+        <h2 class="sec-title">Kelipatan dan KPK</h2>
+        <div class="sec-body">
+          <p><strong>Kelipatan</strong> suatu bilangan adalah hasil kali bilangan tersebut dengan bilangan asli (1, 2, 3, ...).</p>
+
+          <div class="callout def">
+            <div class="callout-title">📘 KPK (Kelipatan Persekutuan Terkecil)</div>
+            KPK dari dua bilangan atau lebih adalah kelipatan terkecil yang sama-sama dimiliki oleh bilangan-bilangan tersebut.
+            Cara mencarinya: gunakan faktorisasi prima, lalu ambil <strong>semua</strong> faktor prima dengan pangkat terbesar.
+            Rumus praktis: \( \text{KPK}(a,b) = \dfrac{a \times b}{\text{FPB}(a,b)} \)
+          </div>
+
+          <div class="worked">
+            <div class="worked-title">Contoh Soal</div>
+            Tentukan KPK dari 8 dan 12.<br><br>
+            <strong>Penyelesaian:</strong><br>
+            \( 8 = 2^3 \), \( 12 = 2^2 \times 3 \)<br>
+            KPK = ambil pangkat terbesar dari semua faktor = \( 2^3 \times 3 = 24 \)
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-title">💡 Gunakan kembali kalkulator di atas</div>
+            Kalkulator FPB &amp; KPK pada Bagian F juga menghitung KPK sekaligus — cukup masukkan dua bilangan yang ingin dicari.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LATIHAN ============ -->
+      <section class="materi-section latihan-header" id="latihan">
+        <div class="sec-label">Latihan</div>
+        <h2 class="sec-title">🖊 Soal Interaktif</h2>
+        <p style="margin-top:1rem; color:var(--ink-muted);">30 soal · 5 tipe · dilengkapi penjelasan otomatis di setiap soal. Pilih tipe soal di bawah untuk mulai berlatih.</p>
+
+        <div class="quiz-tabs">
+          <button class="quiz-tab" data-type="pg" onclick="switchQuizType('pg')">1. Pilihan Ganda</button>
+          <button class="quiz-tab" data-type="is" onclick="switchQuizType('is')">2. Isian Singkat</button>
+          <button class="quiz-tab" data-type="pk" onclick="switchQuizType('pk')">3. PG Kompleks</button>
+          <button class="quiz-tab" data-type="bs" onclick="switchQuizType('bs')">4. Benar/Salah</button>
+          <button class="quiz-tab" data-type="jd" onclick="switchQuizType('jd')">5. Menjodohkan</button>
+        </div>
+
+        <div class="score-panel">
+          <div class="score-box"><div class="num" id="scoreTotal">0/30</div><div class="lbl">Total Terjawab</div></div>
+          <div class="score-box"><div class="num" id="scoreBenar">0</div><div class="lbl">Benar</div></div>
+          <div class="score-box"><div class="num" id="scorePG">0/6</div><div class="lbl">PG</div></div>
+          <div class="score-box"><div class="num" id="scoreIS">0/6</div><div class="lbl">Isian</div></div>
+          <div class="score-box"><div class="num" id="scorePK">0/6</div><div class="lbl">PK</div></div>
+          <div class="score-box"><div class="num" id="scoreBS">0/6</div><div class="lbl">B/S</div></div>
+          <div class="score-box"><div class="num" id="scoreJD">0/6</div><div class="lbl">Jodoh</div></div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div style="margin-top:1.5rem; display:flex; gap:.8rem;">
+          <button class="calc-btn" onclick="showFinalAnalysis()">📊 Lihat Analisis Akhir</button>
+          <button class="reset-btn" onclick="resetQuiz()">🔄 Ulangi Semua</button>
+        </div>
+
+        <div class="final-analysis" id="finalAnalysis">
+          <h3 style="margin-top:2rem;">📊 Analisis Akhir</h3>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="val" id="statTotal">30</div><div class="lbl">Total Soal</div></div>
+            <div class="stat-box"><div class="val" id="statBenar">0</div><div class="lbl">Benar</div></div>
+            <div class="stat-box"><div class="val" id="statSalah">0</div><div class="lbl">Salah</div></div>
+            <div class="stat-box"><div class="val" id="statNilai">0%</div><div class="lbl">Nilai</div></div>
+          </div>
+          <div id="typeBars"></div>
+          <div class="grade-box">
+            <div class="grade" id="gradeLetter">-</div>
+            <div id="gradeMsg">Selesaikan soal untuk melihat nilaimu</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      <strong>Ebook Interaktif — Bilangan Bulat · Kelas 7 SMP</strong><br>
+      Dibuat oleh: Suminto with Claude<br>
+      30 soal · 5 tipe interaktif · MathJax · Single-file HTML — bisa dibuka langsung tanpa server.
+    </footer>
+  </div>
+</div>
+
+<script>
+/* ================= NUMBER LINE SVG ================= */
+(function(){
+  const ticksGroup = document.getElementById('ticks');
+  const nums = [-8,-6,-4,-2,0,2,4,6,8];
+  const startX = 60, endX = 580;
+  const step = (endX - startX) / (nums.length - 1);
+  nums.forEach((n,i)=>{
+    const x = startX + i*step;
+    const tick = document.createElementNS('http://www.w3.org/2000/svg','line');
+    tick.setAttribute('x1', x); tick.setAttribute('x2', x);
+    tick.setAttribute('y1', 40); tick.setAttribute('y2', 50);
+    tick.setAttribute('stroke', '#2b2620'); tick.setAttribute('stroke-width', 2);
+    ticksGroup.appendChild(tick);
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', x); label.setAttribute('y', 70);
+    label.textContent = n;
+    ticksGroup.appendChild(label);
+  });
+})();
+
+/* ================= SIDEBAR / SCROLLSPY ================= */
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+document.querySelectorAll('.nav-link[href^="#"]').forEach(link=>{
+  link.addEventListener('click', ()=>{
+    if(window.innerWidth <= 900){
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    }
+  });
+});
+
+const navLinks = document.querySelectorAll('.nav-link[data-nav]');
+const trackedSections = document.querySelectorAll('section[id]');
+
+function updateScrollspy(){
+  let current = trackedSections[0] ? trackedSections[0].id : '';
+  trackedSections.forEach(sec=>{
+    const rect = sec.getBoundingClientRect();
+    if(rect.top <= 140){ current = sec.id; }
+  });
+  navLinks.forEach(link=>{
+    link.classList.toggle('active', link.dataset.nav === current);
+  });
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop/docHeight)*100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+window.addEventListener('scroll', updateScrollspy);
+window.addEventListener('resize', updateScrollspy);
+updateScrollspy();
+
+/* ================= KALKULATOR: PENJUMLAHAN & PENGURANGAN ================= */
+function hitungAddSub(){
+  const a = parseInt(document.getElementById('asA').value)||0;
+  const op = document.getElementById('asOp').value;
+  const b = parseInt(document.getElementById('asB').value)||0;
+  let hasil, teks;
+  if(op === '+'){ hasil = a+b; teks = `${a} + (${b}) = `; }
+  else { hasil = a-b; teks = `${a} − (${b}) = `; }
+  document.getElementById('asResult').innerHTML = teks + `<span class="big">${hasil}</span>`;
+}
+
+/* ================= KALKULATOR: PERKALIAN & PEMBAGIAN ================= */
+function hitungMulDiv(){
+  const a = parseInt(document.getElementById('mdA').value)||0;
+  const op = document.getElementById('mdOp').value;
+  const b = parseInt(document.getElementById('mdB').value)||0;
+  const box = document.getElementById('mdResult');
+  if(op === '÷'){
+    if(b === 0){ box.innerHTML = '⚠️ Tidak bisa membagi dengan nol.'; return; }
+    const hasil = a/b;
+    const bulat = Number.isInteger(hasil);
+    box.innerHTML = `${a} ÷ (${b}) = <span class="big">${bulat? hasil : hasil.toFixed(2)}</span>` + (bulat? '' : ' <em>(bukan bilangan bulat)</em>');
+  } else {
+    const hasil = a*b;
+    box.innerHTML = `${a} × (${b}) = <span class="big">${hasil}</span>`;
+  }
+}
+
+/* ================= KALKULATOR: BILANGAN BERPANGKAT ================= */
+function hitungPangkat(){
+  const basis = parseInt(document.getElementById('pgBasis').value)||0;
+  let n = parseInt(document.getElementById('pgEksp').value);
+  if(isNaN(n) || n < 0) n = 0;
+  if(n > 12) n = 12;
+  let hasil = 1;
+  let steps = [];
+  for(let i=0;i<n;i++){ hasil *= basis; steps.push(basis); }
+  const stepText = n===0 ? '(pangkat 0 selalu = 1)' : steps.join(' × ');
+  document.getElementById('pgResult').innerHTML =
+    `(${basis})<sup>${n}</sup> = ${stepText} = <span class="big">${hasil}</span>`;
+}
+
+/* ================= KALKULATOR: PRIMA ================= */
+function cekPrima(){
+  let n = parseInt(document.getElementById('prN').value);
+  const box = document.getElementById('prResult');
+  if(isNaN(n)){ box.innerHTML = 'Masukkan bilangan yang valid.'; return; }
+  if(n < 2){ box.innerHTML = `<span class="big">${n}</span> bukan bilangan prima (bilangan prima harus lebih besar dari 1).`; return; }
+  let isPrime = true, factorFound = null;
+  for(let i=2; i*i<=n; i++){
+    if(n % i === 0){ isPrime = false; factorFound = i; break; }
+  }
+  if(isPrime){
+    box.innerHTML = `<span class="big">${n} adalah bilangan PRIMA ✅</span><br>Tidak ada faktor lain selain 1 dan ${n} itu sendiri.`;
+  } else {
+    box.innerHTML = `<span class="big">${n} BUKAN bilangan prima ❌</span><br>Karena ${n} habis dibagi ${factorFound} (${n} = ${factorFound} × ${n/factorFound}).`;
+  }
+}
+
+/* ================= KALKULATOR: FPB & KPK ================= */
+function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b, a%b]; } return a; }
+function hitungFpbKpk(){
+  const a = parseInt(document.getElementById('fkA').value);
+  const b = parseInt(document.getElementById('fkB').value);
+  const box = document.getElementById('fkResult');
+  if(!a || !b || a<1 || b<1){ box.innerHTML = 'Masukkan dua bilangan asli yang valid.'; return; }
+  const f = gcd(a,b);
+  const k = (a*b)/f;
+  box.innerHTML =
+    `FPB(${a}, ${b}) = <span class="big">${f}</span> &nbsp;|&nbsp; KPK(${a}, ${b}) = <span class="big">${k}</span>`;
+}
+
+/* ================= DATA SOAL LATIHAN ================= */
+const allQuestions = {
+  bs: [
+    { id:'bs1', type:'bs', level:'mudah', num:1, text:'Himpunan bilangan bulat terdiri atas bilangan bulat positif, nol, dan bilangan bulat negatif.', answer:true, explanation:'✅ Benar. Bilangan bulat mencakup ketiga jenis tersebut, dituliskan Z = {..., -2, -1, 0, 1, 2, ...}.'},
+    { id:'bs2', type:'bs', level:'mudah', num:2, text:'Nol (0) termasuk bilangan bulat positif.', answer:false, explanation:'❌ Salah. Nol bukan bilangan positif maupun negatif — nol adalah bilangan netral.'},
+    { id:'bs3', type:'bs', level:'sedang', num:3, text:'Hasil dari (-5) + 8 = 3.', answer:true, explanation:'✅ Benar. Tanda berbeda: 8 - 5 = 3, tanda mengikuti 8 (lebih besar) yaitu positif.'},
+    { id:'bs4', type:'bs', level:'sedang', num:4, text:'Hasil dari (-3) × (-4) = -12.', answer:false, explanation:'❌ Salah. Tanda sama (negatif × negatif) menghasilkan positif, jadi hasilnya = 12, bukan -12.'},
+    { id:'bs5', type:'bs', level:'sedang', num:5, text:'7 merupakan bilangan prima karena hanya memiliki dua faktor, yaitu 1 dan 7.', answer:true, explanation:'✅ Benar. 7 tidak habis dibagi oleh bilangan lain selain 1 dan 7, sehingga termasuk bilangan prima.'},
+    { id:'bs6', type:'bs', level:'sukar', num:6, text:'FPB dari 24 dan 36 adalah 6, sedangkan KPK-nya adalah 72.', answer:false, explanation:'❌ Salah. 24 = 2³×3 dan 36 = 2²×3², sehingga FPB = 2²×3 = 12 (bukan 6). KPK-nya memang benar 72 (2³×3²), tetapi karena nilai FPB salah maka pernyataan ini salah.'}
+  ],
+  pg: [
+    { id:'pg1', type:'pg', level:'mudah', num:1, text:'Hasil dari -8 + 3 = ...', options:['-11','-5','5','11'], answer:1, explanation:'-8 + 3: tanda beda, 8-3=5, tanda mengikuti -8 (lebih besar) → -5.'},
+    { id:'pg2', type:'pg', level:'mudah', num:2, text:'Manakah dari bilangan berikut yang merupakan bilangan prima?', options:['9','15','17','21'], answer:2, explanation:'17 hanya memiliki faktor 1 dan 17, sedangkan 9=3×3, 15=3×5, 21=3×7 memiliki lebih dari dua faktor.'},
+    { id:'pg3', type:'pg', level:'sedang', num:3, text:'Hasil dari 6 × (-7) = ...', options:['-42','42','-13','13'], answer:0, explanation:'Tanda beda (positif × negatif) menghasilkan negatif: 6×7=42, jadi hasilnya -42.'},
+    { id:'pg4', type:'pg', level:'sedang', num:4, text:'Nilai dari 3⁴ = ...', options:['12','64','81','243'], answer:2, explanation:'3⁴ = 3×3×3×3 = 81.'},
+    { id:'pg5', type:'pg', level:'sedang', num:5, text:'FPB dari 18 dan 24 = ...', options:['3','6','9','12'], answer:1, explanation:'18 = 2×3², 24 = 2³×3. FPB = ambil pangkat terkecil dari faktor sama = 2×3 = 6.'},
+    { id:'pg6', type:'pg', level:'sukar', num:6, text:'KPK dari 12, 15, dan 20 = ...', options:['60','120','180','240'], answer:0, explanation:'12=2²×3, 15=3×5, 20=2²×5. KPK = ambil pangkat terbesar semua faktor = 2²×3×5 = 60.'}
+  ],
+  jd: [
+    { id:'jd1', type:'jd', level:'mudah', num:1, left:'-6 + (-4)', answer:'-10', options:['-10','-2','2','10'], explanation:'Tanda sama (negatif+negatif): -6 + (-4) = -10.'},
+    { id:'jd2', type:'jd', level:'mudah', num:2, left:'Lawan dari -9', answer:'9', options:['9','-9','0','18'], explanation:'Lawan suatu bilangan adalah negatif dari bilangan itu; lawan dari -9 adalah 9.'},
+    { id:'jd3', type:'jd', level:'sedang', num:3, left:'5 × (-6)', answer:'-30', options:['-30','30','-11','11'], explanation:'Tanda beda (positif×negatif) menghasilkan negatif: 5×6=30, jadi -30.'},
+    { id:'jd4', type:'jd', level:'sedang', num:4, left:'2⁵', answer:'32', options:['32','10','16','64'], explanation:'2⁵ = 2×2×2×2×2 = 32.'},
+    { id:'jd5', type:'jd', level:'sedang', num:5, left:'FPB(16, 24)', answer:'8', options:['8','4','16','48'], explanation:'16=2⁴, 24=2³×3. FPB = pangkat terkecil faktor sama = 2³ = 8.'},
+    { id:'jd6', type:'jd', level:'sukar', num:6, left:'KPK(8, 12)', answer:'24', options:['24','96','48','4'], explanation:'8=2³, 12=2²×3. KPK = pangkat terbesar semua faktor = 2³×3 = 24.'}
+  ],
+  pk: [
+    { id:'pk1', type:'pk', level:'mudah', num:1, text:'Manakah bilangan berikut yang termasuk bilangan bulat negatif?', options:['A. -3','B. 0','C. -12','D. 5'], answers:[0,2], explanation:'Bilangan bulat negatif adalah bilangan di sebelah kiri nol: -3 dan -12. Nol bukan negatif, 5 adalah positif.'},
+    { id:'pk2', type:'pk', level:'mudah', num:2, text:'Manakah pernyataan berikut tentang bilangan prima yang benar?', options:['A. 2 adalah satu-satunya bilangan prima genap','B. Semua bilangan ganjil adalah bilangan prima','C. 1 bukan bilangan prima','D. 17 adalah bilangan prima'], answers:[0,2,3], explanation:'A benar (2 satu-satunya prima genap), B salah (contoh 9 ganjil tapi bukan prima), C benar (1 hanya punya satu faktor), D benar (17 prima).'},
+    { id:'pk3', type:'pk', level:'sedang', num:3, text:'Manakah hasil operasi hitung berikut yang benar?', options:['A. -4 + 7 = 3','B. -4 - 7 = -11','C. -4 × 7 = -28','D. (-28) ÷ (-7) = -4'], answers:[0,1,2], explanation:'A benar (-4+7=3), B benar (-4-7=-11), C benar (-4×7=-28), D salah karena (-28)÷(-7) = 4, bukan -4 (tanda sama menghasilkan positif).'},
+    { id:'pk4', type:'pk', level:'sedang', num:4, text:'Manakah pasangan bilangan berikut yang memiliki FPB = 4?', options:['A. 8 dan 12','B. 16 dan 20','C. 9 dan 15','D. 24 dan 28'], answers:[0,1,3], explanation:'FPB(8,12)=4 ✓, FPB(16,20)=4 ✓, FPB(9,15)=3 ✗, FPB(24,28)=4 ✓.'},
+    { id:'pk5', type:'pk', level:'sedang', num:5, text:'Manakah pernyataan tentang bilangan berpangkat berikut yang benar?', options:['A. 2³ = 8','B. (-2)² = 4','C. (-2)³ = -8','D. 0⁵ = 5'], answers:[0,1,2], explanation:'A,B,C benar sesuai perhitungan. D salah karena 0 dipangkatkan berapa pun (selain 0) selalu = 0, bukan 5.'},
+    { id:'pk6', type:'pk', level:'sukar', num:6, text:'Manakah kelipatan persekutuan dari 6 dan 8 berikut ini?', options:['A. 24','B. 48','C. 36','D. 72'], answers:[0,1,3], explanation:'Kelipatan persekutuan 6 dan 8 harus habis dibagi keduanya: 24 ✓, 48 ✓, 36 tidak habis dibagi 8 ✗, 72 ✓.'}
+  ],
+  is: [
+    { id:'is1', type:'is', level:'mudah', num:1, text:'Hasil dari -12 + 20 = ...', answer:'8', altAnswers:[], explanation:'Tanda beda: 20-12=8, tanda mengikuti 20 (lebih besar) → positif 8.'},
+    { id:'is2', type:'is', level:'mudah', num:2, text:'Bilangan prima terkecil adalah ...', answer:'2', altAnswers:[], explanation:'2 adalah bilangan prima terkecil sekaligus satu-satunya bilangan prima genap.'},
+    { id:'is3', type:'is', level:'sedang', num:3, text:'Hasil dari (-9) × (-6) = ...', answer:'54', altAnswers:[], explanation:'Tanda sama (negatif×negatif) menghasilkan positif: 9×6=54.'},
+    { id:'is4', type:'is', level:'sedang', num:4, text:'Nilai dari 5³ (5 pangkat 3) adalah ...', answer:'125', altAnswers:[], explanation:'5³ = 5×5×5 = 125.'},
+    { id:'is5', type:'is', level:'sedang', num:5, text:'FPB dari 20 dan 30 adalah ...', answer:'10', altAnswers:[], explanation:'20=2²×5, 30=2×3×5. FPB = 2×5 = 10.'},
+    { id:'is6', type:'is', level:'sukar', num:6, text:'KPK dari 4, 6, dan 9 adalah ...', answer:'36', altAnswers:[], explanation:'4=2², 6=2×3, 9=3². KPK = 2²×3² = 36.'}
+  ]
+};
+
+const typeNames = { bs:'Benar/Salah', pg:'Pilihan Ganda', jd:'Menjodohkan', pk:'PG Kompleks', is:'Isian Singkat' };
+const typeColors = { bs:'var(--c-bs)', pg:'var(--c-pg)', jd:'var(--c-jd)', pk:'var(--c-pk)', is:'var(--c-is)' };
+const state = { answers:{}, currentType:'pg' };
+let pkTemp = {};
+
+function switchQuizType(type){
+  state.currentType = type;
+  document.querySelectorAll('.quiz-tab').forEach(t=> t.classList.toggle('active', t.dataset.type === type));
+  renderQuestions(type);
+  document.getElementById('latihan').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function renderQuestions(type){
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  allQuestions[type].forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'card-' + q.id;
+    const already = state.answers[q.id];
+    if(already){ card.classList.add(already.correct ? 'correct-card' : 'wrong-card'); }
+
+    let inner = `<div class="q-meta">
+      <div class="q-num" style="background:${typeColors[type]}">${q.num}</div>
+      <div class="q-level lvl-${q.level}">${q.level}</div>
+    </div>`;
+
+    if(type === 'bs'){
+      inner += `<div class="q-text">${q.text}</div>
+      <div class="bs-btns">
+        <button class="bs-btn" ${already?'disabled':''} onclick="answerBS('${q.id}', true)">✅ BENAR</button>
+        <button class="bs-btn" ${already?'disabled':''} onclick="answerBS('${q.id}', false)">❌ SALAH</button>
+      </div>`;
+    } else if(type === 'pg'){
+      inner += `<div class="q-text">${q.text}</div><div class="opt-list">`;
+      q.options.forEach((opt,idx)=>{
+        let cls = 'opt-btn';
+        if(already){
+          if(idx === already.chosen && already.correct) cls += ' chosen-correct';
+          else if(idx === already.chosen && !already.correct) cls += ' chosen-wrong';
+          else if(idx === q.answer) cls += ' reveal-correct';
+        }
+        inner += `<button class="${cls}" ${already?'disabled':''} onclick="answerPG('${q.id}', ${idx})">${String.fromCharCode(65+idx)}. ${opt}</button>`;
+      });
+      inner += `</div>`;
+    } else if(type === 'jd'){
+      const opts = q._shuffled || (q._shuffled = shuffle(q.options));
+      inner += `<div class="jd-row"><div class="jd-left mono">${q.left}</div><div class="mono">→</div>
+      <select class="jd-select" ${already?'disabled':''} onchange="answerJD('${q.id}', this.value)">
+        <option value="">-- pilih pasangan --</option>
+        ${opts.map(o=>`<option value="${o}" ${already && already.chosen===o?'selected':''}>${o}</option>`).join('')}
+      </select></div>`;
+    } else if(type === 'pk'){
+      const temp = pkTemp[q.id] || [];
+      inner += `<div class="q-text">${q.text}</div><div class="opt-list">`;
+      q.options.forEach((opt,idx)=>{
+        let cls = 'opt-btn';
+        const chosenNow = temp.includes(idx);
+        if(already){
+          const isCorrectOpt = q.answers.includes(idx);
+          const wasChosen = already.chosen.includes(idx);
+          if(wasChosen && isCorrectOpt) cls += ' chosen-correct';
+          else if(wasChosen && !isCorrectOpt) cls += ' chosen-wrong';
+          else if(!wasChosen && isCorrectOpt) cls += ' reveal-correct';
+        } else if(chosenNow){ cls += ' chosen-correct'; }
+        inner += `<button class="${cls}" ${already?'disabled':''} onclick="togglePK('${q.id}', ${idx})"><span class="pk-mark">${chosenNow || (already && already.chosen.includes(idx)) ? '☑' : '☐'}</span>${opt}</button>`;
+      });
+      inner += `</div>`;
+      if(!already){ inner += `<button class="pk-confirm" onclick="submitPK('${q.id}')">Konfirmasi Jawaban</button>`; }
+    } else if(type === 'is'){
+      inner += `<div class="q-text">${q.text}</div>
+      <div class="is-row">
+        <input type="text" id="input-${q.id}" ${already?'disabled':''} value="${already? already.chosen : ''}" placeholder="Ketik jawabanmu..." onkeydown="if(event.key==='Enter') submitIS('${q.id}')">
+        ${already? '' : `<button class="is-submit" onclick="submitIS('${q.id}')">Kirim Jawaban</button>`}
+      </div>`;
+    }
+
+    inner += `<div class="explanation ${already?'show':''}" id="exp-${q.id}">${already? q.explanation : ''}</div>`;
+    card.innerHTML = inner;
+    container.appendChild(card);
+  });
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([container]); }
+  updateScorePanel();
+}
+
+function refreshCard(q, correct){
+  const card = document.getElementById('card-'+q.id);
+  card.classList.add(correct? 'correct-card':'wrong-card');
+  const exp = document.getElementById('exp-'+q.id);
+  exp.innerHTML = q.explanation;
+  exp.classList.add('show');
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([exp]); }
+}
+
+function answerBS(qid, val){
+  const q = allQuestions.bs.find(x=>x.id===qid);
+  const correct = (val === q.answer);
+  state.answers[qid] = { chosen: val, correct };
+  renderQuestions('bs');
+  refreshCard(q, correct);
+  updateScorePanel();
+}
+
+function answerPG(qid, idx){
+  const q = allQuestions.pg.find(x=>x.id===qid);
+  const correct = (idx === q.answer);
+  state.answers[qid] = { chosen: idx, correct };
+  renderQuestions('pg');
+  refreshCard(q, correct);
+  updateScorePanel();
+}
+
+function answerJD(qid, val){
+  if(!val) return;
+  const q = allQuestions.jd.find(x=>x.id===qid);
+  const correct = (val === q.answer);
+  state.answers[qid] = { chosen: val, correct };
+  renderQuestions('jd');
+  refreshCard(q, correct);
+  updateScorePanel();
+}
+
+function togglePK(qid, idx){
+  if(state.answers[qid]) return;
+  if(!pkTemp[qid]) pkTemp[qid] = [];
+  const arr = pkTemp[qid];
+  const pos = arr.indexOf(idx);
+  if(pos >= 0) arr.splice(pos,1); else arr.push(idx);
+  renderQuestions('pk');
+}
+
+function submitPK(qid){
+  const q = allQuestions.pk.find(x=>x.id===qid);
+  const chosen = (pkTemp[qid] || []).slice().sort();
+  const correctSet = q.answers.slice().sort();
+  const correct = chosen.length === correctSet.length && chosen.every((v,i)=>v===correctSet[i]);
+  state.answers[qid] = { chosen, correct };
+  renderQuestions('pk');
+  refreshCard(q, correct);
+  updateScorePanel();
+}
+
+function submitIS(qid){
+  const q = allQuestions.is.find(x=>x.id===qid);
+  const input = document.getElementById('input-'+qid);
+  if(!input || state.answers[qid]) return;
+  const val = input.value.trim().toLowerCase();
+  const validAnswers = [q.answer.toLowerCase(), ...(q.altAnswers||[]).map(a=>a.toLowerCase())];
+  const correct = validAnswers.some(v => val === v || val.includes(v) || v.includes(val));
+  state.answers[qid] = { chosen: input.value, correct };
+  renderQuestions('is');
+  refreshCard(q, correct);
+  updateScorePanel();
+}
+
+function updateScorePanel(){
+  const types = ['bs','pg','jd','pk','is'];
+  let totalAnswered = 0, totalCorrect = 0;
+  const perType = {};
+  types.forEach(t=>{
+    let answered=0, correct=0;
+    allQuestions[t].forEach(q=>{
+      const a = state.answers[q.id];
+      if(a){ answered++; totalAnswered++; if(a.correct){ correct++; totalCorrect++; } }
+    });
+    perType[t] = { answered, correct };
+  });
+  document.getElementById('scoreTotal').textContent = totalAnswered + '/30';
+  document.getElementById('scoreBenar').textContent = totalCorrect;
+  document.getElementById('scorePG').textContent = perType.pg.correct + '/6';
+  document.getElementById('scoreIS').textContent = perType.is.correct + '/6';
+  document.getElementById('scorePK').textContent = perType.pk.correct + '/6';
+  document.getElementById('scoreBS').textContent = perType.bs.correct + '/6';
+  document.getElementById('scoreJD').textContent = perType.jd.correct + '/6';
+}
+
+function showFinalAnalysis(){
+  const types = ['bs','pg','jd','pk','is'];
+  let totalCorrect = 0, totalAnswered = 0;
+  const perType = {};
+  types.forEach(t=>{
+    let correct=0, answered=0;
+    allQuestions[t].forEach(q=>{
+      const a = state.answers[q.id];
+      if(a){ answered++; if(a.correct) correct++; }
+    });
+    perType[t] = { correct, answered };
+    totalCorrect += correct; totalAnswered += answered;
+  });
+  const nilai = Math.round((totalCorrect/30)*100);
+  document.getElementById('statTotal').textContent = 30;
+  document.getElementById('statBenar').textContent = totalCorrect;
+  document.getElementById('statSalah').textContent = totalAnswered - totalCorrect;
+  document.getElementById('statNilai').textContent = nilai + '%';
+
+  const barsDiv = document.getElementById('typeBars');
+  barsDiv.innerHTML = '';
+  types.forEach(t=>{
+    const pct = (perType[t].correct/6)*100;
+    barsDiv.innerHTML += `<div class="type-bar-row">
+      <div class="type-bar-label mono">${typeNames[t]}</div>
+      <div class="type-bar-track"><div class="type-bar-fill" style="width:${pct}%; background:${typeColors[t]}"></div></div>
+      <div class="mono">${perType[t].correct}/6</div>
+    </div>`;
+  });
+
+  let grade, emoji, msg;
+  if(nilai >= 90){ grade='A'; emoji='🏆'; msg='Luar Biasa!'; }
+  else if(nilai >= 75){ grade='B'; emoji='⭐'; msg='Bagus!'; }
+  else if(nilai >= 60){ grade='C'; emoji='👍'; msg='Cukup Baik'; }
+  else if(nilai >= 40){ grade='D'; emoji='💪'; msg='Jangan Menyerah'; }
+  else { grade='E'; emoji='📚'; msg='Semangat Belajar'; }
+  document.getElementById('gradeLetter').textContent = emoji + ' ' + grade;
+  document.getElementById('gradeMsg').textContent = msg + ` — Nilai kamu ${nilai}% (${totalCorrect}/30 benar)`;
+
+  const finalDiv = document.getElementById('finalAnalysis');
+  finalDiv.classList.add('show');
+  finalDiv.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function resetQuiz(){
+  state.answers = {};
+  pkTemp = {};
+  document.getElementById('finalAnalysis').classList.remove('show');
+  renderQuestions(state.currentType);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* init */
+document.querySelectorAll('.quiz-tab').forEach(t=>{ if(t.dataset.type==='pg') t.classList.add('active'); });
+renderQuestions('pg');
+</script>
+</body>
+</html>
