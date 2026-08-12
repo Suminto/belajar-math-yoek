@@ -4,58 +4,46 @@
     {
       "fase": "A",
       "label": "Fase A · Kelas 1–2 SD",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "B",
       "label": "Fase B · Kelas 3–4 SD",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "C",
       "label": "Fase C · Kelas 5–6 SD",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "D",
       "label": "Fase D · Kelas 7–9 SMP",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "E",
       "label": "Fase E · Kelas 10 SMA/SMK",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "F",
       "label": "Fase F · Kelas 11–12 SMA/SMK",
-      "judul": "",
-      "ringkasan": "",
-      "konten": "",
-      "materi": []
+      "bab": []
     },
     {
       "fase": "D",
       "label": "Matematika Kelas 7",
-      "judul": "Bilangan Bulat",
-      "konten": "Bilangan Bulat adalah",
-      "ebook_label": "Buka Ebook - Bilangan Bulat Kelas 7",
-      "ebook_file": "/content/uploads/1-ebook-interaktif-bilangan-bulat-kelas7.html"
+      "bab": [
+        {
+          "judul": "Bilangan Bulat",
+          "ringkasan": "",
+          "konten": "Bilangan Bulat adalah",
+          "materi": [],
+          "ebook_file": "/content/uploads/1-ebook-interaktif-bilangan-bulat-kelas7.html",
+          "ebook_label": "Buka Ebook - Bilangan Bulat Kelas 7"
+        }
+      ]
     }
   ]
 }

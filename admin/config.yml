@@ -44,24 +44,31 @@ collections:
             label: "Daftar Fase (A–F)"
             name: "fases"
             widget: "list"
-            summary: "{{fields.fase}} — {{fields.judul}}"
+            summary: "{{fields.fase}} — {{fields.label}}"
             fields:
               - { label: "Kode Fase", name: "fase", widget: "select", options: ["A", "B", "C", "D", "E", "F"] }
               - { label: "Label Fase", name: "label", widget: "string" }
-              - { label: "Judul Materi", name: "judul", widget: "string", required: false }
-              - { label: "Ringkasan Singkat", name: "ringkasan", widget: "text", required: false }
-              - { label: "Konten (Markdown)", name: "konten", widget: "markdown", required: false, hint: "Gunakan Markdown: ## Sub Judul, **tebal**, *miring*, `kode`, - list, 1. list bernomor, > kutipan, [teks](url), --- garis pemisah. Tag HTML tidak akan tampil." }
-              - label: "Poin-Poin Materi"
-                name: "materi"
+              - label: "Daftar Bab / Materi dalam Fase ini"
+                name: "bab"
                 widget: "list"
                 required: false
-                field: { label: "Poin", name: "poin", widget: "string" }
-              - label: "File Ebook Interaktif (opsional)"
-                name: "ebook_file"
-                widget: "file"
-                required: false
-                hint: "Upload file .html ebook interaktif (mis. dari skill ebook-interaktif-html). Akan tampil sebagai tombol 'Buka Ebook' di halaman fase ini."
-              - { label: "Judul Tombol Ebook", name: "ebook_label", widget: "string", required: false, default: "Buka Ebook Interaktif", hint: "Teks pada tombol, boleh diganti misalnya sesuai judul ebook." }
+                summary: "{{fields.judul}}"
+                hint: "Satu Fase bisa berisi beberapa bab/materi, misalnya Bab 1: Bilangan Bulat, Bab 2: Bilangan Rasional, dst. Klik 'Add' untuk menambah bab baru."
+                fields:
+                  - { label: "Judul Bab/Materi", name: "judul", widget: "string", required: false }
+                  - { label: "Ringkasan Singkat", name: "ringkasan", widget: "text", required: false }
+                  - { label: "Konten (Markdown)", name: "konten", widget: "markdown", required: false, hint: "Gunakan Markdown: ## Sub Judul, **tebal**, *miring*, `kode`, - list, 1. list bernomor, > kutipan, [teks](url), --- garis pemisah. Tag HTML tidak akan tampil." }
+                  - label: "Poin-Poin Materi"
+                    name: "materi"
+                    widget: "list"
+                    required: false
+                    field: { label: "Poin", name: "poin", widget: "string" }
+                  - label: "File Ebook Interaktif (opsional)"
+                    name: "ebook_file"
+                    widget: "file"
+                    required: false
+                    hint: "Upload file .html ebook interaktif (mis. dari skill ebook-interaktif-html). Akan tampil sebagai tombol 'Buka Ebook' di halaman bab ini."
+                  - { label: "Judul Tombol Ebook", name: "ebook_label", widget: "string", required: false, default: "Buka Ebook Interaktif", hint: "Teks pada tombol, boleh diganti misalnya sesuai judul ebook." }
 
   - name: "aljabar"
     label: "Aljabar"

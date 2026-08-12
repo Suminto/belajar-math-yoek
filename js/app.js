@@ -160,39 +160,82 @@ async function showDomain(key) {
   (data.fases || []).forEach((f) => {
     const step = document.createElement("div");
     step.className = "stair-step";
-    const filled = Boolean(f.judul || f.konten || f.ringkasan || f.ebook_file);
+    const bab = f.bab || [];
+    const filledCount = bab.filter((b) => b.judul || b.konten || b.ringkasan || b.ebook_file).length;
     step.innerHTML = `
       <button class="stair-card" data-fase="${escapeHtml(f.fase)}">
         <span class="stair-badge">${escapeHtml(f.fase)}</span>
         <span class="stair-body">
           <p class="stair-label">${escapeHtml(f.label || "Fase " + f.fase)}</p>
-          <p class="stair-title ${filled ? "" : "empty"}">${escapeHtml(filled ? f.judul || "Lihat materi" : "Belum diisi")}</p>
+          <p class="stair-title ${filledCount ? "" : "empty"}">${
+      filledCount
+        ? `${filledCount} bab/materi`
+        : "Belum ada bab/materi"
+    }</p>
         </span>
         <span class="stair-arrow">&#8250;</span>
       </button>
     `;
-    step.querySelector(".stair-card").addEventListener("click", () => showFaseDetail(key, f));
+    step.querySelector(".stair-card").addEventListener("click", () => showBabList(key, f));
     staircase.appendChild(step);
   });
 }
 
-function showFaseDetail(domainKey, fase) {
+function showBabList(domainKey, fase) {
   const domain = domainByKey(domainKey);
-  const hasEbook = Boolean(fase.ebook_file);
-  const hasContent = Boolean(fase.judul || fase.konten || fase.ringkasan || (fase.materi && fase.materi.length) || hasEbook);
+  workspace.style.setProperty("--domain-color", domain.color);
+  const bab = fase.bab || [];
 
   workspace.innerHTML = `
     <button class="back-link" id="back-btn">&#8249; Kembali ke ${escapeHtml(domain.label)}</button>
+    <div class="workspace-header">
+      <p class="eyebrow">${escapeHtml(domain.label)} · ${escapeHtml(fase.label || "Fase " + fase.fase)}</p>
+      <h1 class="workspace-title">Daftar Bab / Materi</h1>
+      <p class="workspace-lede">Pilih satu bab untuk melihat isinya. Bab baru bisa ditambahkan lewat panel admin.</p>
+    </div>
+    <div class="bab-list" id="bab-list"></div>
+  `;
+  document.getElementById("back-btn").addEventListener("click", () => showDomain(domainKey));
+
+  const list = document.getElementById("bab-list");
+  if (!bab.length) {
+    list.innerHTML = `<div class="empty-note">Belum ada bab/materi untuk fase ini. Tambahkan lewat panel admin di /admin.</div>`;
+    return;
+  }
+  bab.forEach((b, i) => {
+    const filled = Boolean(b.judul || b.konten || b.ringkasan || b.ebook_file);
+    const card = document.createElement("button");
+    card.className = "bab-card";
+    card.innerHTML = `
+      <span class="stair-badge">${i + 1}</span>
+      <span class="stair-body">
+        <p class="stair-label">Bab ${i + 1}</p>
+        <p class="stair-title ${filled ? "" : "empty"}">${escapeHtml(filled ? (b.judul || "Lihat materi") : "Belum diisi")}</p>
+      </span>
+      <span class="stair-arrow">&#8250;</span>
+    `;
+    card.addEventListener("click", () => showBabDetail(domainKey, fase, b));
+    list.appendChild(card);
+  });
+}
+
+function showBabDetail(domainKey, fase, bab) {
+  const domain = domainByKey(domainKey);
+  const hasEbook = Boolean(bab.ebook_file);
+  const hasContent = Boolean(bab.judul || bab.konten || bab.ringkasan || (bab.materi && bab.materi.length) || hasEbook);
+
+  workspace.innerHTML = `
+    <button class="back-link" id="back-btn">&#8249; Kembali ke Daftar Bab</button>
     <div class="detail-card">
       <span class="detail-tag">${escapeHtml(fase.label || "Fase " + fase.fase)}</span>
-      <h1 class="detail-title">${escapeHtml(fase.judul || domain.label + " — " + fase.label)}</h1>
-      ${fase.ringkasan ? `<p class="detail-summary">${escapeHtml(fase.ringkasan)}</p>` : ""}
+      <h1 class="detail-title">${escapeHtml(bab.judul || domain.label + " — " + (fase.label || fase.fase))}</h1>
+      ${bab.ringkasan ? `<p class="detail-summary">${escapeHtml(bab.ringkasan)}</p>` : ""}
       ${
         hasEbook
           ? `
-        <a class="ebook-cta" href="${escapeHtml(fase.ebook_file)}" target="_blank" rel="noopener">
+        <a class="ebook-cta" href="${escapeHtml(bab.ebook_file)}" target="_blank" rel="noopener">
           <span class="ebook-cta-icon">&#128214;</span>
-          <span>${escapeHtml(fase.ebook_label || "Buka Ebook Interaktif")}</span>
+          <span>${escapeHtml(bab.ebook_label || "Buka Ebook Interaktif")}</span>
           <span class="ebook-cta-arrow">&#8599;</span>
         </a>
       `
@@ -201,14 +244,14 @@ function showFaseDetail(domainKey, fase) {
       ${
         hasContent
           ? `
-        ${(fase.materi && fase.materi.length) ? `<ul class="materi-list">${fase.materi.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ul>` : ""}
-        <div class="detail-body">${renderMarkdown(fase.konten || "")}</div>
+        ${(bab.materi && bab.materi.length) ? `<ul class="materi-list">${bab.materi.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ul>` : ""}
+        <div class="detail-body">${renderMarkdown(bab.konten || "")}</div>
       `
-          : `<div class="empty-note">Materi untuk fase ini belum diisi. Tambahkan melalui panel admin di /admin.</div>`
+          : `<div class="empty-note">Materi untuk bab ini belum diisi. Tambahkan melalui panel admin di /admin.</div>`
       }
     </div>
   `;
-  document.getElementById("back-btn").addEventListener("click", () => showDomain(domainKey));
+  document.getElementById("back-btn").addEventListener("click", () => showBabList(domainKey, fase));
 }
 
 function escapeHtml(str) {
