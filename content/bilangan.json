@@ -28,12 +28,12 @@
     {
       "fase": "D",
       "label": "Fase D · Kelas 7–9 SMP",
-      "judul": "Bilangan Bulat",
-      "ringkasan": "Bilangan Bulat adalah { ..., -3, -2, -1, 0, 1, 2, 3, ...}",
+      "judul": "",
+      "ringkasan": "",
       "konten": "",
       "materi": [],
-      "ebook_file": "/content/uploads/1-ebook-interaktif-bilangan-bulat-kelas7.html",
-      "ebook_label": "Buka Ebook - Bilangan Bulat Kelas 7"
+      "ebook_file": "",
+      "ebook_label": ""
     },
     {
       "fase": "E",
@@ -49,15 +49,6 @@
       "judul": "",
       "ringkasan": "",
       "konten": "",
-      "materi": []
-    },
-    {
-      "fase": "A",
-      "label": "Matematika Kelas 1",
-      "judul": "Bilangan Bulat",
-      "konten": "Bilangan Bulat adalah",
-      "ebook_label": "Buka Ebook - Bilangan Bulat Kelas 7",
-      "ebook_file": "/content/uploads/1-ebook-interaktif-bilangan-bulat-kelas7.html",
       "materi": []
     }
   ]
