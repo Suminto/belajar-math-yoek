@@ -30,20 +30,6 @@
       "fase": "F",
       "label": "Fase F · Kelas 11–12 SMA/SMK",
       "bab": []
-    },
-    {
-      "fase": "D",
-      "label": "Matematika Kelas 7",
-      "bab": [
-        {
-          "judul": "Bilangan Bulat",
-          "ringkasan": "",
-          "konten": "Bilangan Bulat adalah",
-          "materi": [],
-          "ebook_file": "/content/uploads/1-ebook-interaktif-bilangan-bulat-kelas7.html",
-          "ebook_label": "Buka Ebook - Bilangan Bulat Kelas 7"
-        }
-      ]
     }
   ]
 }
